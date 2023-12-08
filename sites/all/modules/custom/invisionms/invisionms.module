@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Implements hook_menu()
+ */
+function invisionms_menu() {
+    $items = array();
+  
+    $items['api/site-info'] = array(
+      'page callback' => 'site_info_json',
+      'access callback' => 'user_access',
+      'access arguments' => array('access content'),
+      'type' => MENU_CALLBACK,
+      'file' => 'site_info.inc',
+    );
+
+    $items['admin/config/invisionms'] = array(
+      'title' => 'Invision MS',
+      'description' => 'Invision MS tools.',
+      'page callback' => 'system_admin_menu_block_page',
+      'access arguments' => array('access administration pages'),
+      'file' => 'system.admin.inc',
+      'file path' => drupal_get_path('module', 'system'),
+    );
+
+    $items['admin/config/invisionms/fizzbuzz'] = array(
+      'title' => 'FizzBuzz',
+      'description' => 'FizzBuzz number input.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('fizzbuzz_input'),
+      'access arguments' => array('administer site configuration'),
+      'file' => 'fizzbuzz.inc',
+    );
+  
+    return $items;
+}
